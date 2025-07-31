@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.iti.myapplicationbnv.lec_8_9.ProductsViewModel" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F3E5F5"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/teamATitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/team_a"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/scoreViewA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="@+id/teamATitle"
+            app:layout_constraintStart_toStartOf="@+id/teamATitle"
+            app:layout_constraintTop_toBottomOf="@+id/teamATitle"
+            tools:text="0" />
+
+        <Button
+            android:id="@+id/plusOne_teamA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/plus_one"
+            app:layout_constraintEnd_toEndOf="@+id/scoreViewA"
+            app:layout_constraintStart_toStartOf="@+id/scoreViewA"
+            app:layout_constraintTop_toBottomOf="@+id/scoreViewA" />
+
+        <Button
+            android:id="@+id/plusTwo_teamA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> viewModel.incrementScore(true, 2)}"
+            android:text="@string/plus_two"
+            app:layout_constraintEnd_toEndOf="@+id/plusOne_teamA"
+            app:layout_constraintStart_toStartOf="@+id/plusOne_teamA"
+            app:layout_constraintTop_toBottomOf="@+id/plusOne_teamA" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/teamBTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/team_b"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/scoreViewB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{String.valueOf(viewModel.scoreB)}"
+            android:textColor="@android:color/black"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="@+id/teamBTitle"
+            app:layout_constraintStart_toStartOf="@+id/teamBTitle"
+            app:layout_constraintTop_toBottomOf="@+id/teamBTitle"
+            tools:text="0" />
+
+        <Button
+            android:id="@+id/plusOne_teamB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="@{() -> viewModel.incrementScore(false, 1)}"
+            android:text="@string/plus_one"
+            app:layout_constraintEnd_toEndOf="@+id/scoreViewB"
+            app:layout_constraintStart_toStartOf="@+id/scoreViewB"
+            app:layout_constraintTop_toBottomOf="@+id/scoreViewB" />
+
+        <Button
+            android:id="@+id/plusTwo_teamB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> viewModel.incrementScore(false, 2)}"
+            android:text="@string/plus_two"
+            app:layout_constraintEnd_toEndOf="@+id/plusOne_teamB"
+            app:layout_constraintStart_toStartOf="@+id/plusOne_teamB"
+            app:layout_constraintTop_toBottomOf="@+id/plusOne_teamB" />
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:onClick="@{() -> viewModel.resetScores()}"
+            android:text="@string/reset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/winnerMessageTv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:ellipsize="none"
+            android:isScrollContainer="true"
+            android:scrollbars="vertical"
+            android:text="@{viewModel.winnerMessage}"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/resetButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plusTwo_teamA"
+            app:layout_constraintVertical_bias="0.5"
+            tools:text="Team A Wins!" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom Theme for the Toolbar's Popup Menu (overflow menu items) -->
+    <!-- Apply this theme to the Toolbar's 'app:popupTheme' attribute -->
+    <style name="AppToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Color for the text of menu items in the overflow menu -->
+        <item name="android:textColorPrimary">@color/your_menu_item_text_color</item>
+    </style>
+    <style name="textViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:textColor">@color/your_menu_item_text_color</item>
+    </style>
+    <style name="RoundedCornersImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+</resources>

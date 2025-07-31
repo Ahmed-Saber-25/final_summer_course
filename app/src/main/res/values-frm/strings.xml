@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mon ApplicationBNV</string>
+    <string name="title_home">Accueil</string>
+    <string name="title_dashboard">Tableau de bord</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="logout">Déconnexion</string>
+    <string name="settings">Paramètres</string>
+    <string name="about">À propos</string>
+    <string name="menu_slideshow">Diaporama</string>
+    <string name="menu_share">Partager</string>
+    <string name="menu_send">Envoyer</string>
+    <string name="gallery">Galerie</string>
+    <string name="nav_header_desc">Description</string>
+    <string name="nav_header_title">Titre de len-tête</string>
+    <string name="nav_header_subtitle">Sous-titre de len-tête</string>
+</resources>

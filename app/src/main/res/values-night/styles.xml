@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Color for the text of menu items in the overflow menu -->
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+    <style name="textViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

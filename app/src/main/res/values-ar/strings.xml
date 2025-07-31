@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">تطبيقي BNV</string>
+    <string name="title_home">الرئيسية</string>
+    <string name="title_dashboard">لوحة التحكم</string>
+    <string name="title_notifications">الإشعارات</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="settings">الإعدادات</string>
+    <string name="about">حول</string>
+    <string name="menu_slideshow">عرض الشرائح</string>
+    <string name="menu_share">مشاركة</string>
+    <string name="menu_send">إرسال</string>
+    <string name="gallery">معرض</string>
+    <string name="nav_header_desc">الوصف</string>
+    <string name="nav_header_title">عنوان الرأس</string>
+    <string name="nav_header_subtitle">الرأس عنوان فرعي</string>
+</resources>
