@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -33,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -42,35 +47,25 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.gson)
-    implementation (libs.sdp.android)
-    implementation (libs.ssp.android)
-
-    // RecyclerView
+    implementation(libs.sdp.android)
+    implementation(libs.ssp.android)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.glide)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.lottie)
+    kapt(libs.androidx.room.compiler)
 
-    // retrofit
-    implementation (libs.retrofit)
 
-    // GSON
-    implementation (libs.converter.gson)
-
-    // coroutine
-    implementation (libs.kotlinx.coroutines.android)
-
-    implementation (libs.kotlinx.coroutines.core)
-    implementation (libs.glide)
-
-    implementation (libs.androidx.room.runtime)
-    implementation (libs.androidx.room.ktx )
 }
