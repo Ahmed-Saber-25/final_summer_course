@@ -3,6 +3,7 @@ package com.example.final_summer_course.utils
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.google.gson.Gson
 
 class SharedPref private constructor(private val sharedPreferences: SharedPreferences) {
 
@@ -118,16 +119,17 @@ class SharedPref private constructor(private val sharedPreferences: SharedPrefer
 
     fun getInt(key: String, defaultValue: Int): Int =
         sharedPreferences.getInt(key, defaultValue)
-//    fun saveUser(value: User) {
-//        sharedPreferences.edit {
-//            val gson = Gson()
-//            val json = gson.toJson(value)
-//            putString("user", json)
-//        }
-//    }
 
-//    fun getUser(): User? {
-//        val json = sharedPreferences.getString("user", null)
-//        return if (json.isNullOrEmpty()) null else Gson().fromJson(json, User::class.java)
-//    }
+    fun saveUser(value: User) {
+        sharedPreferences.edit {
+            val gson = Gson()
+            val json = gson.toJson(value)
+            putString("user", json)
+        }
+    }
+
+    fun getUser(): User? {
+        val json = sharedPreferences.getString("user", null)
+        return if (json.isNullOrEmpty()) null else Gson().fromJson(json, User::class.java)
+    }
 }
