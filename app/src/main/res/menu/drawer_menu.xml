@@ -3,35 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group>
         <item
-            android:id="@+id/home"
-            android:icon="@drawable/home"
-            android:title="@string/home" />
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="@string/logout" />
         <item
-            android:id="@+id/search"
-            android:icon="@drawable/search"
-            android:title="@string/search" />
+            android:id="@+id/delete_account"
+            android:icon="@drawable/delete"
+            android:title="@string/delete_account" />
         <item
-            android:id="@+id/favorite"
-            android:icon="@drawable/favorite"
-            android:title="@string/favorite" />
-        <item
-            android:id="@+id/about"
-            android:icon="@drawable/about"
-            android:title="@string/about" />
+            android:id="@+id/close"
+            android:icon="@drawable/outline_arrow_back_ios_24"
+            android:title="@string/close" />
     </group>
 
-    <item android:title="@string/other_options">
-        <menu>
-            <item
-                android:id="@+id/logout"
-                android:icon="@drawable/logout"
-                android:title="@string/logout" />
-            <item
-                android:id="@+id/delete_account"
-                android:icon="@drawable/delete"
-                android:title="@string/delete_account" />
-        </menu>
-    </item>
 </menu>

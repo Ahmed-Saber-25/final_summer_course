@@ -107,11 +107,6 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.home -> navController.navigate(R.id.recipeListFragment)
-            R.id.search -> Toast.makeText(context, "Search clicked", Toast.LENGTH_SHORT).show()
-            R.id.favorite -> Toast.makeText(context, "Favorite clicked", Toast.LENGTH_SHORT)
-                .show()
-
             R.id.logout -> {
                 SharedPref.getInstance().saveData("isLoggedIn", false)
                 val intent = Intent(requireContext(), AuthActivity::class.java)
@@ -128,7 +123,7 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                 Toast.makeText(context, "Account Deleted Successfully", Toast.LENGTH_SHORT).show()
             }
 
-            R.id.about -> Toast.makeText(context, "About clicked", Toast.LENGTH_SHORT).show()
+            R.id.close -> binding.drawerLayout.closeDrawers()
         }
         binding.drawerLayout.closeDrawers()
         return true

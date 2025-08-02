@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/auth_nav_graph"
     app:startDestination="@id/recipeListFragment">
-
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="com.example.final_summer_course.features.views.recipe.RecipeListFragment"
@@ -11,6 +9,9 @@
         <action
             android:id="@+id/action_recipeListFragment_to_recipeItemDetailsFragment"
             app:destination="@id/recipeItemDetailsFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/recipeItemDetailsFragment"
@@ -23,5 +24,15 @@
             android:name="meal"
             app:argType="com.example.final_summer_course.features.views.recipe.models.MealModel" />
     </fragment>
-
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.final_summer_course.features.views.recipe.FavoriteFragment"
+        android:label="Favorite Recipes">
+        <action
+            android:id="@+id/action_favoriteFragment_to_recipeItemDetailsFragment"
+            app:destination="@id/recipeItemDetailsFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
 </navigation>

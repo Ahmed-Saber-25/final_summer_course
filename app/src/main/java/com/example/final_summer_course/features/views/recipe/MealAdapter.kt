@@ -1,5 +1,6 @@
 package com.example.final_summer_course.features.views.recipe
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.example.final_summer_course.R
 import com.example.final_summer_course.features.views.recipe.models.MealModel
 
 class MealAdapter(
-    private val meals: List<MealModel>,
+    private var meals: List<MealModel>,
     private val onItemClick: (MealModel) -> Unit
 ) : RecyclerView.Adapter<MealAdapter.ViewHolder>() {
 
@@ -44,5 +45,11 @@ class MealAdapter(
     }
 
     override fun getItemCount(): Int = meals.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newMeals: List<MealModel>) {
+        this.meals = newMeals
+        notifyDataSetChanged()
+    }
 }
 
