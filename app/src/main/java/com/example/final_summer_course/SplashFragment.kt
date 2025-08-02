@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.final_summer_course.databinding.FragmentSplashBinding
+import com.example.final_summer_course.features.views.auth.AuthActivity
 import com.example.final_summer_course.features.views.recipe.RecipeActivity
 import com.example.final_summer_course.utils.SharedPref
 
@@ -33,15 +34,16 @@ class SplashFragment : Fragment() {
 
             val isLoggedIn = SharedPref.getInstance().getData("isLoggedIn", false) as Boolean
 
-            ///TODO [Remove this line at the end]
-            SharedPref.getInstance().saveData("isLoggedIn", false)
+//            SharedPref.getInstance().saveData("isLoggedIn", false)
 
             if (isLoggedIn) {
                 val intent = Intent(requireContext(), RecipeActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             } else {
-                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
+                val intent = Intent(requireContext(), AuthActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
             }
 
         }, 3000)

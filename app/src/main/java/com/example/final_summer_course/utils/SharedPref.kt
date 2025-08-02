@@ -132,4 +132,11 @@ class SharedPref private constructor(private val sharedPreferences: SharedPrefer
         val json = sharedPreferences.getString("user", null)
         return if (json.isNullOrEmpty()) null else Gson().fromJson(json, User::class.java)
     }
+
+    fun deleteUser() {
+        sharedPreferences.edit {
+            remove("user")
+        }
+    }
+
 }
