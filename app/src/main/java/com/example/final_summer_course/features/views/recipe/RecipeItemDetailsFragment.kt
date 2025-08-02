@@ -19,12 +19,20 @@ import com.bumptech.glide.Glide
 import com.example.final_summer_course.R
 import com.example.final_summer_course.databinding.FragmentRecipeItemDetailsBinding
 import androidx.core.net.toUri
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.final_summer_course.features.views.recipe.database.MealDatabase
+import kotlinx.coroutines.launch
 
 class RecipeItemDetailsFragment : Fragment() {
     private var _binding: FragmentRecipeItemDetailsBinding? = null
     private val binding get() = _binding!!
+
     private var meal: MealModel? = null
     private val args: RecipeItemDetailsFragmentArgs by navArgs()
+    private lateinit var mealViewModel: MealViewModel
+    private var isFavorite: Boolean = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,27 +52,30 @@ class RecipeItemDetailsFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.item_details_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+
+        val favItem = menu.findItem(R.id.add_favorite)
+
+        meal?.let { mealItem ->
+            lifecycleScope.launch {
+                isFavorite = mealViewModel.isMealFavorite(mealItem.id)
+                favItem.icon = ContextCompat.getDrawable(
+                    requireContext(),
+                    if (isFavorite) R.drawable.favorite else R.drawable.favorite_empty
+                )
+            }
+        }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
+        val dao = MealDatabase.getInstance(requireContext()).mealDao()
+        val repo = MealRepositoryImpl(dao)
+        val factory = MealViewModelFactory(repo)
+        mealViewModel = viewModels<MealViewModel> { factory }.value
 
-        binding.toolbar.title = meal?.title ?: "Recipe Details"
-        binding.toolbar.setTitleTextColor(Color.WHITE)
-        binding.toolbar.overflowIcon?.setTint(
-            ContextCompat.getColor(
-                requireContext(),
-                android.R.color.white
-            )
-        )
-        binding.toolbar.setNavigationIcon(R.drawable.outline_arrow_back_ios_24)
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
+        setupToolbar()
 
         meal?.let { meal ->
             binding.textViewTitle.text = meal.title
@@ -82,6 +93,23 @@ class RecipeItemDetailsFragment : Fragment() {
         }
     }
 
+    private fun setupToolbar() {
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(binding.toolbar)
+
+        binding.toolbar.title = meal?.title ?: "Recipe Details"
+        binding.toolbar.setTitleTextColor(Color.WHITE)
+        binding.toolbar.overflowIcon?.setTint(
+            ContextCompat.getColor(
+                requireContext(),
+                android.R.color.white
+            )
+        )
+        binding.toolbar.setNavigationIcon(R.drawable.outline_arrow_back_ios_24)
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
 
     private fun getIngredientsList(meal: MealModel): String {
         val ingredients = listOf(
@@ -129,12 +157,30 @@ class RecipeItemDetailsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.youtube_item -> {
-                val url = meal?.youtubeUrl
-                if (!url.isNullOrBlank()) {
+                meal?.youtubeUrl?.let { url ->
                     val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                     startActivity(intent)
                 }
+                true
+            }
 
+            R.id.add_favorite -> {
+                meal?.let { meal ->
+                    lifecycleScope.launch {
+                        val isFavorite = mealViewModel.isMealFavorite(meal.id)
+
+                        item.icon = ContextCompat.getDrawable(
+                            requireContext(),
+                            if (!isFavorite) R.drawable.favorite else R.drawable.favorite_empty
+                        )
+
+                        if (!isFavorite) {
+                            mealViewModel.saveMeal(meal)
+                        } else {
+                            mealViewModel.deleteMeal(meal)
+                        }
+                    }
+                }
                 true
             }
 

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_summer_course.R
 import com.example.final_summer_course.databinding.FragmentRecipeListBinding
 import com.example.final_summer_course.features.views.auth.AuthActivity
-import com.example.final_summer_course.features.views.auth.LoginFragment
 import com.example.final_summer_course.features.views.recipe.api.RetrofitHelper
 import com.example.final_summer_course.utils.SharedPref
 import com.google.android.material.navigation.NavigationView
@@ -70,8 +69,6 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         toggle.drawerArrowDrawable.color = Color.WHITE
         toggle.syncState()
 
-
-
         binding.navigationView.setNavigationItemSelectedListener(this)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -79,10 +76,10 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val productResponse = RetrofitHelper.instance.listByFirstLetter("a")
-                val productsList = productResponse.meals
+                val meals = productResponse.meals
 
                 withContext(Dispatchers.Main) {
-                    binding.recyclerView.adapter = MealAdapter(productsList) { meal ->
+                    binding.recyclerView.adapter = MealAdapter(meals) { meal ->
                         val action = RecipeListFragmentDirections
                             .actionRecipeListFragmentToRecipeItemDetailsFragment(meal)
                         navController.navigate(action)

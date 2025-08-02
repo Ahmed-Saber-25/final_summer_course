@@ -16,6 +16,10 @@
             android:id="@+id/favorite"
             android:icon="@drawable/favorite"
             android:title="@string/favorite" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/about"
+            android:title="@string/about" />
     </group>
 
     <item android:title="@string/other_options">
@@ -28,10 +32,6 @@
                 android:id="@+id/delete_account"
                 android:icon="@drawable/delete"
                 android:title="@string/delete_account" />
-            <item
-                android:id="@+id/about"
-                android:icon="@drawable/about"
-                android:title="@string/about" />
         </menu>
     </item>
 </menu>
