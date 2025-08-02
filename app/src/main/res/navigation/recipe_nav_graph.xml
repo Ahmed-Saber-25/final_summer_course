@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/recipeListFragment">
+
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.example.final_summer_course.features.views.recipe.RecipeListFragment"
+        android:label="Recipe List">
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeItemDetailsFragment"
+            app:destination="@id/recipeItemDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeItemDetailsFragment"
+        android:name="com.example.final_summer_course.features.views.recipe.RecipeItemDetailsFragment"
+        android:label="Recipe Item Details">
+        <action
+            android:id="@+id/action_recipeItemDetailsFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
+
+
+</navigation>

@@ -9,4 +9,20 @@
     <string name="register">Register</string>
     <string name="full_name">Full Name</string>
     <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="watch_on_youtube">Watch on YouTube</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="search">Search</string>
+    <string name="about">About</string>
+    <string name="share">Share</string>
+    <string name="other_options">Other Options</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="recipe_app">Recipe App</string>
+    <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>
