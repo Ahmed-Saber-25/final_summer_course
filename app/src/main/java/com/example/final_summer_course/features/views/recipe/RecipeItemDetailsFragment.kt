@@ -1,8 +1,9 @@
 package com.example.final_summer_course.features.views.recipe
 
+import com.example.final_summer_course.features.views.recipe.models.MealModel
+import androidx.navigation.fragment.navArgs
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,19 +13,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.final_summer_course.R
 import com.example.final_summer_course.databinding.FragmentRecipeItemDetailsBinding
-import com.example.final_summer_course.features.views.recipe.models.MealModel
 import androidx.core.net.toUri
 
 class RecipeItemDetailsFragment : Fragment() {
     private var _binding: FragmentRecipeItemDetailsBinding? = null
     private val binding get() = _binding!!
     private var meal: MealModel? = null
+    private val args: RecipeItemDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,7 @@ class RecipeItemDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        meal = arguments?.getSerializable("meal") as? MealModel
+        meal = args.meal
     }
 
     @Deprecated("Deprecated in Java")

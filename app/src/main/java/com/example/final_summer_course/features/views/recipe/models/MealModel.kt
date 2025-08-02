@@ -1,8 +1,10 @@
 package com.example.final_summer_course.features.views.recipe.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class MealModel(
     @SerializedName("idMeal")
     val id: String,
@@ -98,4 +100,5 @@ data class MealModel(
     val measure19: String? = null,
     @SerializedName("strMeasure20")
     val measure20: String? = null
-) : Serializable
+) : Parcelable
+

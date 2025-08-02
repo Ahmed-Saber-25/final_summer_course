@@ -82,7 +82,11 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                 val productsList = productResponse.meals
 
                 withContext(Dispatchers.Main) {
-                    binding.recyclerView.adapter = MealAdapter(productsList)
+                    binding.recyclerView.adapter = MealAdapter(productsList) { meal ->
+                        val action = RecipeListFragmentDirections
+                            .actionRecipeListFragmentToRecipeItemDetailsFragment(meal)
+                        navController.navigate(action)
+                    }
                     binding.progressBar.visibility = View.GONE
                 }
             } catch (e: Exception) {
@@ -106,7 +110,7 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.home ->  navController.navigate(R.id.recipeListFragment)
+            R.id.home -> navController.navigate(R.id.recipeListFragment)
             R.id.search -> Toast.makeText(context, "Search clicked", Toast.LENGTH_SHORT).show()
             R.id.favorite -> Toast.makeText(context, "Favorite clicked", Toast.LENGTH_SHORT)
                 .show()

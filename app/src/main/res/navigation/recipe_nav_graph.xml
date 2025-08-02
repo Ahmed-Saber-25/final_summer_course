@@ -19,7 +19,9 @@
         <action
             android:id="@+id/action_recipeItemDetailsFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
+        <argument
+            android:name="meal"
+            app:argType="com.example.final_summer_course.features.views.recipe.models.MealModel" />
     </fragment>
-
 
 </navigation>
