@@ -9,33 +9,17 @@ import kotlinx.coroutines.launch
 
 class MealViewModel(private val repository: MealRepository) : ViewModel() {
 
-    private val _allMeals = MutableLiveData<List<MealModel>>()
-    val allMeals: LiveData<List<MealModel>> get() = _allMeals
-
-    private val _isFavorite = MutableLiveData<Boolean>()
-    val isFavorite: LiveData<Boolean> get() = _isFavorite
-
-    init {
-        fetchAllMeals()
-    }
+    val allMeals: LiveData<List<MealModel>> = repository.getAllMeals() // ✅ Real-time
 
     fun saveMeal(meal: MealModel) {
         viewModelScope.launch {
             repository.insertMeal(meal)
-            fetchAllMeals()
         }
     }
 
     fun deleteMeal(meal: MealModel) {
         viewModelScope.launch {
             repository.deleteMeal(meal)
-            fetchAllMeals()
-        }
-    }
-
-    fun fetchAllMeals() {
-        viewModelScope.launch {
-            _allMeals.value = repository.getAllMeals()
         }
     }
 

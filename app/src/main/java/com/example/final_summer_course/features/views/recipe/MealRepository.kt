@@ -1,11 +1,12 @@
 package com.example.final_summer_course.features.views.recipe
 
+import androidx.lifecycle.LiveData
 import com.example.final_summer_course.features.views.recipe.database.MealDao
 import com.example.final_summer_course.features.views.recipe.models.MealModel
 
 
 interface MealRepository {
-    suspend fun getAllMeals(): List<MealModel>
+    fun getAllMeals(): LiveData<List<MealModel>>
     suspend fun insertMeal(meal: MealModel)
     suspend fun deleteMeal(meal: MealModel)
     suspend fun isMealFavorite(id: String): Boolean
@@ -13,8 +14,8 @@ interface MealRepository {
 
 class MealRepositoryImpl(private val mealDao: MealDao) : MealRepository {
 
-    override suspend fun getAllMeals(): List<MealModel> {
-        return mealDao.getAll()
+    override fun getAllMeals(): LiveData<List<MealModel>> {
+        return mealDao.getAllMeals()
     }
 
     override suspend fun insertMeal(meal: MealModel) {

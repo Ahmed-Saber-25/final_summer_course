@@ -63,6 +63,19 @@ class FavoriteFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        mealViewModel.allMeals.observe(viewLifecycleOwner) { meals ->
+            if (meals.isNullOrEmpty()) {
+                binding.recyclerView.visibility = View.GONE
+                mealAdapter.updateData(emptyList())
+            } else {
+                binding.recyclerView.visibility = View.VISIBLE
+                mealAdapter.updateData(meals)
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

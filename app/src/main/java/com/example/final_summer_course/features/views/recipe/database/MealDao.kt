@@ -1,5 +1,6 @@
 package com.example.final_summer_course.features.views.recipe.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -10,7 +11,7 @@ import com.example.final_summer_course.features.views.recipe.models.MealModel
 @Dao
 interface MealDao {
     @Query("SELECT * FROM meals")
-    suspend fun getAll(): List<MealModel>
+    fun getAllMeals(): LiveData<List<MealModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMeal(meal: MealModel)
