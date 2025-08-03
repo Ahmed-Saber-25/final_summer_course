@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -108,19 +109,34 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.logout -> {
-                SharedPref.getInstance().saveData("isLoggedIn", false)
-                val intent = Intent(requireContext(), AuthActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
-                Toast.makeText(context, "Logout Successfully", Toast.LENGTH_SHORT).show()
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+                    .setPositiveButton("Yes") { _, _ ->
+                        SharedPref.getInstance().saveData("isLoggedIn", false)
+                        val intent = Intent(requireContext(), AuthActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                        Toast.makeText(context, "Logout Successfully", Toast.LENGTH_SHORT).show()
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
             }
 
             R.id.delete_account -> {
-                SharedPref.getInstance().deleteUser()
-                val intent = Intent(requireContext(), AuthActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
-                Toast.makeText(context, "Account Deleted Successfully", Toast.LENGTH_SHORT).show()
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Delete Account")
+                    .setMessage("Are you sure you want to delete your account?")
+                    .setPositiveButton("Yes") { _, _ ->
+                        SharedPref.getInstance().deleteUser()
+                        val intent = Intent(requireContext(), AuthActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                        Toast.makeText(context, "Account Deleted Successfully", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
             }
         }
         binding.drawerLayout.closeDrawers()
