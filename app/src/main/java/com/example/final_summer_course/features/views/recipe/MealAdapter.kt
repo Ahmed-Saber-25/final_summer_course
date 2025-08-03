@@ -12,9 +12,14 @@ import com.example.final_summer_course.R
 import com.example.final_summer_course.features.views.recipe.models.MealModel
 
 class MealAdapter(
-    private var meals: List<MealModel>,
     private val onItemClick: (MealModel) -> Unit
 ) : RecyclerView.Adapter<MealAdapter.ViewHolder>() {
+    private var meals: List<MealModel> = emptyList()
+
+    fun submitList(mealsList: List<MealModel>) {
+        meals = mealsList
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.meal_image)
@@ -54,4 +59,3 @@ class MealAdapter(
         notifyDataSetChanged()
     }
 }
-

@@ -44,15 +44,8 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mealAdapter = MealAdapter(emptyList()) { clickedMeal ->
-            val action = FavoriteFragmentDirections
-                .actionFavoriteFragmentToRecipeItemDetailsFragment(clickedMeal)
-            findNavController().navigate(action)
-        }
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = mealAdapter
-        }
+
+        initMealsAdapter()
         mealViewModel.allMeals.observe(viewLifecycleOwner, Observer { meals ->
             if (meals.isNullOrEmpty()) {
                 binding.recyclerView.visibility = View.GONE
@@ -64,6 +57,16 @@ class FavoriteFragment : Fragment() {
                 mealAdapter.updateData(meals)
             }
         })
+    }
+
+    private fun initMealsAdapter() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        mealAdapter = MealAdapter { clickedMeal ->
+            val action = FavoriteFragmentDirections
+                .actionFavoriteFragmentToRecipeItemDetailsFragment(clickedMeal)
+            findNavController().navigate(action)
+        }
+        binding.recyclerView.adapter = mealAdapter
     }
 
     override fun onResume() {

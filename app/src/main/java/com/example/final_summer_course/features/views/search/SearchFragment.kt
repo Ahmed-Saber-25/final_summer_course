@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_summer_course.databinding.FragmentSearchBinding
 import com.example.final_summer_course.features.views.recipe.MealAdapter
+import com.example.final_summer_course.features.views.recipe.RecipeListFragmentDirections
 import com.example.final_summer_course.features.views.recipe.api.RetrofitHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -30,6 +31,8 @@ class SearchFragment : Fragment() {
 
     private var searchJob: Job? = null
 
+    private lateinit var mealAdapter: MealAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,11 +44,20 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.toolbar.setTitleTextColor(Color.WHITE)
         binding.progressBar.visibility = View.GONE
-
+        initMealsAdapter()
         onEditTextChanged()
+    }
+
+    private fun initMealsAdapter() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        mealAdapter = MealAdapter { meal ->
+            val action = SearchFragmentDirections
+                .actionSearchFragmentToRecipeItemDetailsFragment(meal)
+            navController.navigate(action)
+        }
+        binding.recyclerView.adapter = mealAdapter
     }
 
     fun onEditTextChanged() {
@@ -73,14 +85,9 @@ class SearchFragment : Fragment() {
                 RetrofitHelper.instance.searchMealByName(query)
             }
             val meals = mealsResponse.meals
-
-            if (!meals.isNullOrEmpty()) {
+            if (meals.isNotEmpty()) {
                 binding.recyclerView.visibility = View.VISIBLE
-                binding.recyclerView.adapter = MealAdapter(meals) { meal ->
-                    val action = SearchFragmentDirections
-                        .actionSearchFragmentToRecipeItemDetailsFragment(meal)
-                    navController.navigate(action)
-                }
+                mealAdapter.submitList(meals)
             } else {
                 binding.recyclerView.visibility = View.GONE
                 Toast.makeText(requireContext(), "No meals found", Toast.LENGTH_SHORT).show()

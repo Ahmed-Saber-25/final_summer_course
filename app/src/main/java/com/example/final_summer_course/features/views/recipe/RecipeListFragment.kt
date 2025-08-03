@@ -37,6 +37,8 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navController: NavController
 
+    private lateinit var mealAdapter: MealAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,9 +58,19 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
 
         binding.navigationView.setNavigationItemSelectedListener(this)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        initMealsAdapter()
 
         getMealsList()
+    }
+
+    private fun initMealsAdapter() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        mealAdapter = MealAdapter { meal ->
+            val action = RecipeListFragmentDirections
+                .actionRecipeListFragmentToRecipeItemDetailsFragment(meal)
+            navController.navigate(action)
+        }
+        binding.recyclerView.adapter = mealAdapter
     }
 
     fun getMealsList() {
@@ -68,10 +80,8 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                 val meals = mealsResponse.meals
 
                 withContext(Dispatchers.Main) {
-                    binding.recyclerView.adapter = MealAdapter(meals) { meal ->
-                        val action = RecipeListFragmentDirections
-                            .actionRecipeListFragmentToRecipeItemDetailsFragment(meal)
-                        navController.navigate(action)
+                    if (meals.isNotEmpty()) {
+                        mealAdapter.submitList(meals)
                     }
                     binding.progressBar.visibility = View.GONE
                 }
