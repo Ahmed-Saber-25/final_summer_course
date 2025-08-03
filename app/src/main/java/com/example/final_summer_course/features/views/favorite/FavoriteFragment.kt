@@ -1,6 +1,5 @@
-package com.example.final_summer_course.features.views.recipe
+package com.example.final_summer_course.features.views.favorite
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_summer_course.databinding.FragmentFavoriteBinding
+import com.example.final_summer_course.features.views.recipe.MealAdapter
+import com.example.final_summer_course.features.views.recipe.MealRepository
+import com.example.final_summer_course.features.views.recipe.MealRepositoryImpl
+import com.example.final_summer_course.features.views.recipe.MealViewModel
+import com.example.final_summer_course.features.views.recipe.MealViewModelFactory
 import com.example.final_summer_course.features.views.recipe.database.MealDatabase
 
 class FavoriteFragment : Fragment() {
@@ -20,7 +24,7 @@ class FavoriteFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mealRepository: MealRepository by lazy {
-        val mealDao = MealDatabase.getInstance(requireContext()).mealDao()
+        val mealDao = MealDatabase.Companion.getInstance(requireContext()).mealDao()
         MealRepositoryImpl(mealDao)
     }
 
@@ -40,7 +44,6 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.setTitleTextColor(Color.WHITE)
         mealAdapter = MealAdapter(emptyList()) { clickedMeal ->
             val action = FavoriteFragmentDirections
                 .actionFavoriteFragmentToRecipeItemDetailsFragment(clickedMeal)

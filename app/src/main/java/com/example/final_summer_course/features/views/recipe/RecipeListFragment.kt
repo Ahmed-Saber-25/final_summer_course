@@ -57,7 +57,6 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
 
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
-        binding.toolbar.setTitleTextColor(Color.WHITE)
 
         toggle = ActionBarDrawerToggle(
             activity,
