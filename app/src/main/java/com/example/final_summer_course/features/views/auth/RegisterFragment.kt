@@ -13,7 +13,6 @@ import com.example.final_summer_course.features.views.recipe.RecipeActivity
 import com.example.final_summer_course.utils.SharedPref
 import com.example.final_summer_course.utils.User
 
-
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
@@ -35,35 +34,45 @@ class RegisterFragment : Fragment() {
             val email = binding.registerEmail.text.toString().trim()
             val password = binding.registerPassword.text.toString().trim()
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
-                    .show()
-            } else if (name.length < 3) {
-                Toast.makeText(
-                    requireContext(),
-                    "Name must be at least 3 characters",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (password.length < 6) {
-                Toast.makeText(
-                    requireContext(),
-                    "Password must be at least 6 characters",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                SharedPref.getInstance().saveData("isLoggedIn", true)
-
-                SharedPref.getInstance().saveUser(User(name, email, password))
-
-                val intent = Intent(requireContext(), RecipeActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
-            }
+            checkValidation(name, email, password)
         }
 
         binding.loginTitle.setOnClickListener {
             val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
             findNavController().navigate(action)
+        }
+    }
+
+    fun checkValidation(name: String, email: String, password: String) {
+        binding.errorEmail.visibility = View.GONE
+        binding.errorPassword.visibility = View.GONE
+        binding.errorName.visibility = View.GONE
+        if (name.isEmpty()) {
+            binding.errorName.text = "Name is required"
+            binding.errorName.visibility = View.VISIBLE
+        } else if (name.length < 3) {
+            binding.errorName.text = "Name must be at least 3 characters"
+            binding.errorName.visibility = View.VISIBLE
+        } else if (email.isEmpty()) {
+            binding.errorEmail.text = "Email is required"
+            binding.errorEmail.visibility = View.VISIBLE
+        } else if (password.isEmpty()) {
+            binding.errorPassword.text = "Password is required"
+            binding.errorPassword.visibility = View.VISIBLE
+        } else if (password.length < 6) {
+            binding.errorPassword.text = "Password must be at least 6 characters"
+            binding.errorPassword.visibility = View.VISIBLE
+        } else {
+            binding.errorEmail.visibility = View.GONE
+            binding.errorPassword.visibility = View.GONE
+            binding.errorName.visibility = View.GONE
+            SharedPref.getInstance().saveData("isLoggedIn", true)
+
+            SharedPref.getInstance().saveUser(User(name, email, password))
+
+            val intent = Intent(requireContext(), RecipeActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
 

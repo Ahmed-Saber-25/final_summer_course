@@ -75,8 +75,8 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val productResponse = RetrofitHelper.instance.listByFirstLetter("a")
-                val meals = productResponse.meals
+                val mealsResponse = RetrofitHelper.instance.searchMealByName("C")
+                val meals = mealsResponse.meals
 
                 withContext(Dispatchers.Main) {
                     binding.recyclerView.adapter = MealAdapter(meals) { meal ->
@@ -122,8 +122,6 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                 requireActivity().finish()
                 Toast.makeText(context, "Account Deleted Successfully", Toast.LENGTH_SHORT).show()
             }
-
-            R.id.close -> binding.drawerLayout.closeDrawers()
         }
         binding.drawerLayout.closeDrawers()
         return true
