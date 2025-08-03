@@ -45,6 +45,10 @@ class SearchFragment : Fragment() {
         binding.toolbar.setTitleTextColor(Color.WHITE)
         binding.progressBar.visibility = View.GONE
 
+        onEditTextChanged()
+    }
+
+    fun onEditTextChanged() {
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {
                 val recipe = text.toString().trim()
