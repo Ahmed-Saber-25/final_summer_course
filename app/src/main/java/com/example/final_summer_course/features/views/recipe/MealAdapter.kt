@@ -37,6 +37,8 @@ class MealAdapter(
 
         Glide.with(holder.image)
             .load(meal.imageUrl)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.person)
             .into(holder.image)
 
         holder.itemView.setOnClickListener {

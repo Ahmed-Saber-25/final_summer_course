@@ -21,4 +21,7 @@ interface MealDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM meals WHERE id = :mealId)")
     suspend fun isMealFavorite(mealId: String): Boolean
+
+    @Query("DELETE FROM meals")
+    suspend fun deleteAllMeals()
 }

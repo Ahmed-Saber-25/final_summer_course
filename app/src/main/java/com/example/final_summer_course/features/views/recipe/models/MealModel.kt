@@ -15,11 +15,11 @@ data class MealModel(
     @SerializedName("strMeal")
     val title: String,
     @SerializedName("strMealThumb")
-    val imageUrl: String,
+    val imageUrl: String? = null,
     @SerializedName("strCategory")
-    val category: String,
+    val category: String? = null,
     @SerializedName("strArea")
-    val area: String,
+    val area: String? = null,
     @SerializedName("strYoutube")
     val youtubeUrl: String? = null,
     @SerializedName("strInstructions")

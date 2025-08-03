@@ -10,6 +10,7 @@ interface MealRepository {
     suspend fun insertMeal(meal: MealModel)
     suspend fun deleteMeal(meal: MealModel)
     suspend fun isMealFavorite(id: String): Boolean
+    suspend fun deleteAllMeals()
 }
 
 class MealRepositoryImpl(private val mealDao: MealDao) : MealRepository {
@@ -28,5 +29,9 @@ class MealRepositoryImpl(private val mealDao: MealDao) : MealRepository {
 
     override suspend fun isMealFavorite(id: String): Boolean {
         return mealDao.isMealFavorite(id)
+    }
+
+    override suspend fun deleteAllMeals() {
+        return mealDao.deleteAllMeals()
     }
 }

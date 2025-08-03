@@ -11,6 +11,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -70,10 +71,7 @@ class RecipeItemDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dao = MealDatabase.getInstance(requireContext()).mealDao()
-        val repo = MealRepositoryImpl(dao)
-        val factory = MealViewModelFactory(repo)
-        mealViewModel = viewModels<MealViewModel> { factory }.value
+        setupMealViewModel()
 
         setupToolbar()
 
@@ -85,6 +83,7 @@ class RecipeItemDetailsFragment : Fragment() {
             Glide.with(this)
                 .load(meal.imageUrl)
                 .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.person)
                 .into(binding.imageViewMeal)
 
             binding.textViewIngredients.text = getIngredientsList(meal)
@@ -109,6 +108,13 @@ class RecipeItemDetailsFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    fun setupMealViewModel() {
+        val dao = MealDatabase.getInstance(requireContext()).mealDao()
+        val repo = MealRepositoryImpl(dao)
+        val factory = MealViewModelFactory(repo)
+        mealViewModel = viewModels<MealViewModel> { factory }.value
     }
 
     private fun getIngredientsList(meal: MealModel): String {
@@ -175,8 +181,18 @@ class RecipeItemDetailsFragment : Fragment() {
                         )
 
                         if (!isFavorite) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Added to favorites",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             mealViewModel.saveMeal(meal)
                         } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Removed from favorites",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             mealViewModel.deleteMeal(meal)
                         }
                     }

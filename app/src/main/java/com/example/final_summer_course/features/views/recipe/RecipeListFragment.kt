@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ import com.example.final_summer_course.R
 import com.example.final_summer_course.databinding.FragmentRecipeListBinding
 import com.example.final_summer_course.features.views.auth.AuthActivity
 import com.example.final_summer_course.features.views.recipe.api.RetrofitHelper
+import com.example.final_summer_course.features.views.recipe.database.MealDatabase
 import com.example.final_summer_course.utils.SharedPref
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.Dispatchers
@@ -48,31 +50,18 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
 
         navController = findNavController()
 
-        val savedUser = SharedPref.getInstance().getUser()
-        val headerView = binding.navigationView.getHeaderView(0)
-        val titleView = headerView.findViewById<TextView>(R.id.drawer_header_title)
-        val subtitleView = headerView.findViewById<TextView>(R.id.drawer_header_subtitle)
-        titleView.text = "Welcome ${savedUser?.name}"
-        subtitleView.text = "${savedUser?.email}"
+        setupDrawerHeader()
 
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-
-        toggle = ActionBarDrawerToggle(
-            activity,
-            binding.drawerLayout,
-            binding.toolbar,
-            R.string.open,
-            R.string.close
-        )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.drawerArrowDrawable.color = Color.WHITE
-        toggle.syncState()
+        setupToolbarWithDrawer()
 
         binding.navigationView.setNavigationItemSelectedListener(this)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        getMealsList()
+    }
+
+    fun getMealsList() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val mealsResponse = RetrofitHelper.instance.searchMealByName("C")
@@ -99,6 +88,30 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         }
     }
 
+    fun setupToolbarWithDrawer() {
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(binding.toolbar)
+
+        toggle = ActionBarDrawerToggle(
+            activity,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.open,
+            R.string.close
+        )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.drawerArrowDrawable.color = Color.WHITE
+        toggle.syncState()
+    }
+
+    fun setupDrawerHeader() {
+        val savedUser = SharedPref.getInstance().getUser()
+        val headerView = binding.navigationView.getHeaderView(0)
+        val titleView = headerView.findViewById<TextView>(R.id.drawer_header_title)
+        val subtitleView = headerView.findViewById<TextView>(R.id.drawer_header_subtitle)
+        titleView.text = "Welcome ${savedUser?.name}"
+        subtitleView.text = "${savedUser?.email}"
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -131,6 +144,7 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                         val intent = Intent(requireContext(), AuthActivity::class.java)
                         startActivity(intent)
                         requireActivity().finish()
+                        deleteAllMeals()
                         Toast.makeText(context, "Account Deleted Successfully", Toast.LENGTH_SHORT)
                             .show()
                     }
@@ -140,6 +154,13 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         }
         binding.drawerLayout.closeDrawers()
         return true
+    }
+
+    fun deleteAllMeals() {
+        lifecycleScope.launch {
+            val mealDao = MealDatabase.getInstance(requireContext()).mealDao()
+            mealDao.deleteAllMeals()
+        }
     }
 
 }

@@ -63,6 +63,7 @@ class LoginFragment : Fragment() {
             requireActivity().finish()
         } else {
             binding.errorEmail.visibility = View.GONE
+            binding.errorPassword.visibility = View.VISIBLE
             binding.errorPassword.text = "Please check your Email/Password"
         }
     }
