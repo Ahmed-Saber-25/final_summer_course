@@ -125,11 +125,7 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                     .setTitle("Logout")
                     .setMessage("Are you sure you want to logout?")
                     .setPositiveButton("Yes") { _, _ ->
-                        SharedPref.getInstance().saveData("isLoggedIn", false)
-                        val intent = Intent(requireContext(), AuthActivity::class.java)
-                        startActivity(intent)
-                        requireActivity().finish()
-                        Toast.makeText(context, "Logout Successfully", Toast.LENGTH_SHORT).show()
+                        logout()
                     }
                     .setNegativeButton("Cancel", null)
                     .show()
@@ -140,13 +136,7 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
                     .setTitle("Delete Account")
                     .setMessage("Are you sure you want to delete your account?")
                     .setPositiveButton("Yes") { _, _ ->
-                        SharedPref.getInstance().deleteUser()
-                        val intent = Intent(requireContext(), AuthActivity::class.java)
-                        startActivity(intent)
-                        requireActivity().finish()
-                        deleteAllMeals()
-                        Toast.makeText(context, "Account Deleted Successfully", Toast.LENGTH_SHORT)
-                            .show()
+                        deleteAccount()
                     }
                     .setNegativeButton("Cancel", null)
                     .show()
@@ -154,6 +144,24 @@ class RecipeListFragment : Fragment(), NavigationView.OnNavigationItemSelectedLi
         }
         binding.drawerLayout.closeDrawers()
         return true
+    }
+
+    fun logout() {
+        SharedPref.getInstance().saveData("isLoggedIn", false)
+        val intent = Intent(requireContext(), AuthActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+        Toast.makeText(context, "Logout Successfully", Toast.LENGTH_SHORT).show()
+    }
+
+    fun deleteAccount() {
+        SharedPref.getInstance().deleteUser()
+        val intent = Intent(requireContext(), AuthActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+        deleteAllMeals()
+        Toast.makeText(context, "Account Deleted Successfully", Toast.LENGTH_SHORT)
+            .show()
     }
 
     fun deleteAllMeals() {

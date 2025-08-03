@@ -179,22 +179,7 @@ class RecipeItemDetailsFragment : Fragment() {
                             requireContext(),
                             if (!isFavorite) R.drawable.favorite else R.drawable.favorite_empty
                         )
-
-                        if (!isFavorite) {
-                            Toast.makeText(
-                                requireContext(),
-                                "Added to favorites",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            mealViewModel.saveMeal(meal)
-                        } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Removed from favorites",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            mealViewModel.deleteMeal(meal)
-                        }
+                        clickOnFavorite(meal)
                     }
                 }
                 true
@@ -204,4 +189,21 @@ class RecipeItemDetailsFragment : Fragment() {
         }
     }
 
+    fun clickOnFavorite(meal: MealModel) {
+        if (!isFavorite) {
+            Toast.makeText(
+                requireContext(),
+                "Added to favorites",
+                Toast.LENGTH_SHORT
+            ).show()
+            mealViewModel.saveMeal(meal)
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Removed from favorites",
+                Toast.LENGTH_SHORT
+            ).show()
+            mealViewModel.deleteMeal(meal)
+        }
+    }
 }
