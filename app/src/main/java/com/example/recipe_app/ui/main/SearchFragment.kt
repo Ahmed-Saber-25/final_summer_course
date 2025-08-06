@@ -12,11 +12,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipe_app.adapter.HomeAdapter
 import com.example.recipe_app.databinding.FragmentSearchBinding
-import com.example.recipe_app.model.Recipe
+import com.example.recipe_app.data.model.Recipe
 import com.example.recipe_app.network.RetrofitInstance
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchFragment : Fragment() {
 
@@ -44,12 +46,12 @@ class SearchFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.recyclerSearch.apply {
+        binding.searchRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = homeAdapter
         }
 
-        binding.etSearch.addTextChangedListener { text ->
+        binding.searchEditText.addTextChangedListener { text ->
             searchJob?.cancel()
             searchJob = lifecycleScope.launch {
                 delay(500) // debounce delay
@@ -67,7 +69,9 @@ class SearchFragment : Fragment() {
     private fun searchRecipes(query: String) {
         lifecycleScope.launch {
             try {
-                val response = RetrofitInstance.api.getMeals(query)
+                val response = withContext(Dispatchers.IO) {
+                    RetrofitInstance.api.getMeals(query)
+                }
                 response.meals?.let {
                     searchResults.clear()
                     searchResults.addAll(it)
@@ -78,6 +82,7 @@ class SearchFragment : Fragment() {
             }
         }
     }
+
 
     private fun clearResults() {
         searchResults.clear()

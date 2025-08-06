@@ -1,6 +1,6 @@
 package com.example.recipe_app.network
 
-import com.example.recipe_app.model.MealResponse
+import com.example.recipe_app.data.model.MealResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

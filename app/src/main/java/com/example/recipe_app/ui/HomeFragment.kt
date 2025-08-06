@@ -30,16 +30,27 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fetch recipes from API
         viewModel.fetchRecipes("chicken")
-        binding.recyclerHome
 
+        // Observe recipe data
         viewModel.recipes.observe(viewLifecycleOwner) { recipes ->
-            binding.recyclerHome.apply {
+            binding.recipeRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = RecipeAdapter(recipes) { selected ->
-                    val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(selected)
-                    findNavController().navigate(action)
-                }
+                adapter = RecipeAdapter(
+                    recipes = recipes,
+                    onItemClick = { selected ->
+                        val action = HomeFragmentDirections
+                            .actionHomeFragmentToRecipeDetailFragment(selected)
+                        findNavController().navigate(action)
+                    },
+                    onFavoriteClick = { recipe, isFav ->
+                        viewModel.toggleFavorite(recipe)
+                    },
+                    isFavorite = { recipe ->
+                        viewModel.isFavorite(recipe)
+                    }
+                )
             }
         }
     }

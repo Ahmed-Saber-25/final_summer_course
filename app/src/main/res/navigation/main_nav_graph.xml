@@ -14,7 +14,24 @@
             app:destination="@id/recipeDetailFragment" />
     </fragment>
 
-    <!-- Search Fragment (💡 this is what was missing) -->
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.recipe_app.ui.auth.RegisterFragment"
+        android:label="Register">
+
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+
+    <!-- Search Fragment -->
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.recipe_app.ui.main.SearchFragment"
@@ -24,6 +41,21 @@
             app:destination="@id/recipeDetailFragment" />
     </fragment>
 
+
+
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.recipe_app.ui.auth.LoginFragment"
+        android:label="Login" />
+
+
+    <!-- Favorite Fragment (💡 newly added) -->
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.recipe_app.ui.main.FavoriteFragment"
+        android:label="Favorite" />
+
     <!-- Recipe Detail Fragment with argument -->
     <fragment
         android:id="@+id/recipeDetailFragment"
@@ -31,7 +63,7 @@
         android:label="Recipe Details">
         <argument
             android:name="selectedRecipe"
-            app:argType="com.example.recipe_app.model.Recipe" />
+            app:argType="com.example.recipe_app.data.model.Recipe" />
     </fragment>
 
 </navigation>

@@ -1,14 +1,21 @@
 package com.example.recipe_app.network
 
+import com.example.recipe_app.data.remote.RecipeApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    val api: RecipeApi by lazy {
+    private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
+
+    private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://www.themealdb.com/api/json/v1/1/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(RecipeApi::class.java)
+    }
+
+    val api: RecipeApiService by lazy {
+        retrofit.create(RecipeApiService::class.java)
     }
 }
+

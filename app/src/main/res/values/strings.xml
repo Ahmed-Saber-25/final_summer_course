@@ -15,5 +15,18 @@
     <string name="favorite">favorite</string>
     <string name="recipe_title">Recipe Title</string>
     <string name="search_recipes">Search recipes...</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="explore_recipes">Explore Recipes</string>
+    <string name="ready_in_x_mins">Ready in x mins</string>
+    <string name="easy_amp_quick"><![CDATA[Easy & Quick]]></string>
+    <string name="search_recipes2">Search recipes...</string>
+    <string name="your_favorite_recipes">Your Favorite Recipes</string>
+    <string name="no_favorites_yet">no_favorites_yet\n</string>
+    <string name="type_to_search">type to search</string>
+    <string name="favorite_icon">Favorite icon</string>
+    <string name="show_full_recipe">show_full_recipe\n</string>
+    <string name="hide_full_recipe">hide_full_recipe</string>
 
 </resources>

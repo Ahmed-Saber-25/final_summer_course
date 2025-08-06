@@ -1,10 +1,15 @@
+import org.gradle.kotlin.dsl.implementation
+
+
+
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     id("org.jetbrains.kotlin.plugin.parcelize")
     id ("kotlin-parcelize")
-
+    id ("kotlin-kapt")
 }
 
 
@@ -28,7 +33,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -66,6 +71,13 @@ dependencies {
 
     // Lottie
     implementation(libs.lottie)
+    implementation(libs.androidx.room.common.jvm)
+    implementation(libs.androidx.room.runtime.android)
+
+    // Room components
+    implementation (libs.androidx.room.runtime)
+    implementation("androidx.room:room-ktx:2.7.2")
+    kapt("androidx.room:room-compiler:2.7.2") // <- REQUIRED for Room annotations
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

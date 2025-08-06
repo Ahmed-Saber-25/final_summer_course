@@ -1,21 +1,42 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# Preserve Kotlin metadata
+-keep class kotlin.** { *; }
+-keepclassmembers class ** {
+    @kotlin.Metadata *;
+}
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Retrofit (keep model classes and interfaces)
+-keep class com.example.recipe_app.model.** { *; }
+-keep interface com.example.recipe_app.api.** { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Gson or Moshi (whichever you're using with Retrofit)
+-keep class com.google.gson.** { *; }
+-dontwarn com.google.gson.**
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Glide
+-keep class com.bumptech.glide.** { *; }
+-dontwarn com.bumptech.glide.**
+
+# Keep Parcelable model (Kotlin Parcelize)
+-keep class kotlinx.parcelize.** { *; }
+-keep class com.example.recipe_app.data.model.Recipe { *; }
+
+# For Fragments (to prevent issues with reflection)
+-keep public class * extends androidx.fragment.app.Fragment
+
+# If using ViewBinding or DataBinding
+-keep class **.databinding.*Binding { *; }
+
+# Avoid warnings
+-dontwarn okhttp3.**
+-dontwarn retrofit2.**
+-dontwarn okio.**
+
+# Keep application classes
+-keep class com.example.recipe_app.** { *; }
+
+# Optional: keep activity classes
+-keep class * extends android.app.Activity
+-keep class * extends android.app.Application
+-keep class * extends android.app.Service
+-keep class * extends android.content.BroadcastReceiver
+-keep class * extends android.content.ContentProvider

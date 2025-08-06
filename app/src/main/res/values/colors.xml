@@ -4,4 +4,32 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_baige">#F2C6A0</color>
     <color name="logo_brown">#894823</color>
+    <color name="itemIconTint">#856623</color>
+    <color name="itemTextColor">#822223</color>
+
+
+    <color name="accent_coral">#FF6B5C</color>
+    <color name="deep_terracotta">#E2725B</color>
+    <color name="soft_ivory">#F9F4EC</color>
+    <color name="warm_gold">#D4AF37</color>
+    <color name="dusty_rose">#C08081</color>
+    <color name="olive_green">#708238</color>
+    <color name="warm_gray">#A89F91</color>
+    <color name="burnt_sienna">#A0522D</color>
+    <color name="rich_maroon">#800000</color>
+    <color name="shadow_gray">#5C5C5C</color>
+    <color name="light_dusty_rose">#E6B7B8</color>
+    <color name="charcoal_grey">#333333</color>
+    <color name="ash_grey">#4A4A4A</color>
+    <color name="slate_grey">#555555</color>
+    <color name="dim_grey">#696969</color>
+    <color name="soft_rose">#D88C9A</color>
+    <color name="autumn_orange_brown">#D9A066</color>
+    <color name="pumpkin_spice">#E1A95F</color>      <!-- More orange -->
+    <color name="burnt_caramel">#B87333</color>      <!-- Richer and browner -->
+    <color name="muted_clay">#C18E60</color>         <!-- A balanced muted tone -->
+    <color name="soft_olive">#8A9A5B</color>         <!-- Muted and elegant -->
+    <color name="warm_olive">#9BA17B</color>         <!-- Warmer, slightly faded -->
+    <color name="dusty_olive">#708238</color>        <!-- Balanced and subtle -->
+
 </resources>

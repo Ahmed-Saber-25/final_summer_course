@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipe_app.databinding.ItemRecipeBinding
-import com.example.recipe_app.model.Recipe
+import com.example.recipe_app.data.model.Recipe
 
 class HomeAdapter(
     private val recipes: List<Recipe>,
@@ -16,9 +16,9 @@ class HomeAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(recipe: Recipe) {
-            binding.tvTitle.text = recipe.name
+            binding.tvTitle.text = recipe.strMeal
             Glide.with(binding.ivMeal.context)
-                .load(recipe.imageUrl)
+                .load(recipe.strMealThumb)
                 .into(binding.ivMeal)
 
             binding.root.setOnClickListener {
