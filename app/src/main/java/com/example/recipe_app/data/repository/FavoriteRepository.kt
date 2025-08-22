@@ -15,10 +15,11 @@ class FavoriteRepository(
     private val sharedPref = SharedPrefrence(context)
     private val userEmail = sharedPref.getEmail() ?: ""
 
-    fun getFavoritesForCurrentUser(): LiveData<List<FavoriteRecipe>> {
+    fun getFavoritesByUser(): LiveData<List<FavoriteRecipe>> {
         return favoriteRecipeDao.getFavoritesByUser(userEmail)
     }
 
+    // For internal/background use: used in coroutine scope
     suspend fun getFavoritesByEmail(email: String): List<FavoriteRecipe> {
         return favoriteRecipeDao.getFavoritesByEmail(email)
     }

@@ -21,20 +21,19 @@ class FavoritesViewModel(
     init {
         getFavoritesForUser()
     }
+
     private fun getFavoritesForUser() {
         viewModelScope.launch {
-            Log.d("FAV_DEBUG", "User email: $userEmail")  // add this
+            Log.d("FAV_DEBUG", "User email: $userEmail")
             val favorites = repository.getFavoritesByEmail(userEmail)
-            Log.d("FAV_DEBUG", "Fetched favorites count: ${favorites.size}")  // and this
+            Log.d("FAV_DEBUG", "Fetched favorites count: ${favorites.size}")
             _allFavorites.postValue(favorites)
         }
     }
 
-
     suspend fun isFavorite(recipeId: String): Boolean {
         return repository.isFavorite(recipeId, userEmail)
     }
-
 
     class FavoritesViewModelFactory(
         private val repository: FavoriteRepository,

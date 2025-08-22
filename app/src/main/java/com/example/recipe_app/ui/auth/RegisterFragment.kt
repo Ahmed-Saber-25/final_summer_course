@@ -1,5 +1,6 @@
 package com.example.recipe_app.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.recipe_app.R
+import com.example.recipe_app.RecipeActivity
 import com.example.recipe_app.data.local.SharedPrefrence
 import com.example.recipe_app.data.model.RecipeDatabase
 import com.example.recipe_app.data.model.User
@@ -46,7 +48,7 @@ class RegisterFragment : Fragment() {
 
         val loginTextView = view.findViewById<TextView>(R.id.textView2)
         loginTextView.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
         }
 
         registerButton.setOnClickListener {
@@ -76,7 +78,9 @@ class RegisterFragment : Fragment() {
 
                     withContext(Dispatchers.Main) {
                         Toast.makeText(requireContext(), "Registered successfully", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                        val intent = Intent(requireActivity(), RecipeActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
